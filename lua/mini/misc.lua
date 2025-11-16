@@ -708,7 +708,9 @@ MiniMisc.zoom = function(buf_id, config)
   end
   H.zoom_winid = vim.api.nvim_open_win(buf_id or 0, true, compute_config())
   vim.wo[H.zoom_winid].winblend = 0
-  vim.cmd('normal! zz')
+  if vim.api.nvim_get_mode().mode ~= 't' then
+    vim.cmd('normal! zz')
+  end
 
   -- - Make sure zoom window is adjusting to changes in its hyperparameters
   local gr = vim.api.nvim_create_augroup('MiniMiscZoom', { clear = true })
